@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Travel Packing Optimizer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>✈️ Smart Travel Packing Optimizer</h1>
+                <p>Never overpack or forget anything again!</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="form-container">
+                <form id="packingForm" class="packing-form">
+                    <div class="form-section">
+                        <h2>Trip Details</h2>
+                        
+                        <div class="form-group">
+                            <label for="destination" class="required">Destination</label>
+                            <input type="text" id="destination" name="destination" placeholder="e.g., Paris, Tokyo, New York" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="startDate" class="required">Start Date</label>
+                            <input type="date" id="startDate" name="startDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="endDate" class="required">End Date</label>
+                            <input type="date" id="endDate" name="endDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="durationDays">Duration (Days)</label>
+                            <input type="number" id="durationDays" name="durationDays" value="7" min="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="travelReason" class="required">Reason for Travel</label>
+                            <select id="travelReason" name="travelReason" required>
+                                <option value="">Select a reason</option>
+                                <option value="vacation">Vacation/Leisure</option>
+                                <option value="business">Business</option>
+                                <option value="adventure">Adventure/Adventure Sports</option>
+                                <option value="family">Family Trip</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="transportation" class="required">Transportation Mode</label>
+                            <select id="transportation" name="transportation" required>
+                                <option value="">Select transportation</option>
+                                <option value="flight">Flight</option>
+                                <option value="car">Car</option>
+                                <option value="train">Train</option>
+                                <option value="bus">Bus</option>
+                                <option value="cruise">Cruise</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="itinerary">Itinerary (Optional)</label>
+                            <textarea id="itinerary" name="itinerary" placeholder="e.g., Beach, Hiking, Mountain climbing, Skiing, Diving" rows="3"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-large">Generate Packing Checklist</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Results Section -->
+            <div id="resultsSection" class="results-section hidden">
+                <!-- Weather Information -->
+                <div class="weather-card card">
+                    <h3>🌤️ Weather Information</h3>
+                    <div id="weatherInfo" class="info-grid"></div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="recommendations-card card">
+                    <h3>💡 Recommendations</h3>
+                    <ul id="recommendationsList" class="recommendations-list"></ul>
+                </div>
+
+                <!-- Packing Checklist -->
+                <div class="checklist-card card">
+                    <h3>📋 Packing Checklist</h3>
+                    <div class="checklist-controls">
+                        <input type="text" id="filterInput" placeholder="Filter items..." class="filter-input">
+                        <select id="categoryFilter" class="category-filter">
+                            <option value="">All Categories</option>
+                            <option value="clothing">Clothing</option>
+                            <option value="footwear">Footwear</option>
+                            <option value="accessories">Accessories</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="toiletries">Toiletries</option>
+                            <option value="health">Health & Medicine</option>
+                            <option value="documents">Documents</option>
+                            <option value="luggage">Luggage</option>
+                        </select>
+                    </div>
+                    <table class="checklist-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Category</th>
+                                <th>Quantity</th>
+                                <th>Weight (kg)</th>
+                                <th>Total Weight (kg)</th>
+                                <th>✓</th>
+                            </tr>
+                        </thead>
+                        <tbody id="checklistTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Luggage Weight Summary -->
+                <div class="weight-summary-card card">
+                    <h3>⚖️ Luggage Weight Summary</h3>
+                    <div id="weightSummary" class="weight-grid"></div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button onclick="printChecklist()" class="btn btn-secondary">🖨️ Print Checklist</button>
+                    <button onclick="downloadChecklist()" class="btn btn-secondary">⬇️ Download Checklist</button>
+                    <button onclick="resetForm()" class="btn btn-secondary">🔄 Start Over</button>
+                </div>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" class="loading-spinner hidden">
+                <div class="spinner"></div>
+                <p>Generating your perfect packing checklist...</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Smart Travel Packing Optimizer. Happy travels! ✈️</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
